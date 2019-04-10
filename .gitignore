@@ -1,2 +1,4 @@
 *.pyc
 .Rproj.user
+images/sample-photos-tidy
+output/sample-photos-tidy-frame
