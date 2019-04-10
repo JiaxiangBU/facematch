@@ -7,6 +7,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--img", type = str, required=True)
+parser.add_argument("--output", type = str, required=True)
 args = parser.parse_args()
 
 # some constants kept as default from facenet
@@ -43,6 +44,7 @@ img = imutils.resize(img,width=1000)
 faces = getFace(img)
 for face in faces:
     cv2.rectangle(img, (face['rect'][0], face['rect'][1]), (face['rect'][2], face['rect'][3]), (0, 255, 0), 2)
-cv2.imshow("faces", img)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# cv2.imshow("faces", img)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+cv2.imwrite(args.output,img)
