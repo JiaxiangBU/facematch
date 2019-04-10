@@ -1,0 +1,47 @@
+
+```{r}
+source(here::here("R/load.R"))
+```
+
+```{r}
+dir_info("../images/sample-photos-tidy") %>% 
+    transmute(
+        path = str_remove_all(path, "^\\.\\./")
+    ) %>% 
+    mutate(
+        output = glue("output/sample-photos-tidy-frame/{basename(path)}")
+    ) %>% 
+    transmute(
+        text = 
+            glue("python face_detect_demo.py --img={path} --output={output}")
+    ) %>% 
+    summarise(
+        str_flatten(text, "\n")
+    ) %>% 
+    pull %>% 
+    clipr::write_clip()
+```
+
+
+python face_detect_demo.py --img=images/sample-photos-tidy/022_3.bmp --output=output/sample-photos-tidy-frame/022_3.bmp
+python face_detect_demo.py --img=images/sample-photos-tidy/143_3.bmp --output=output/sample-photos-tidy-frame/143_3.bmp
+python face_detect_demo.py --img=images/sample-photos-tidy/204_1.bmp --output=output/sample-photos-tidy-frame/204_1.bmp
+python face_detect_demo.py --img=images/sample-photos-tidy/227_2.bmp --output=output/sample-photos-tidy-frame/227_2.bmp
+python face_detect_demo.py --img=images/sample-photos-tidy/263_2.bmp --output=output/sample-photos-tidy-frame/263_2.bmp
+python face_detect_demo.py --img=images/sample-photos-tidy/274_4.bmp --output=output/sample-photos-tidy-frame/274_4.bmp
+python face_detect_demo.py --img=images/sample-photos-tidy/393_4.bmp --output=output/sample-photos-tidy-frame/393_4.bmp
+python face_detect_demo.py --img=images/sample-photos-tidy/440_4.bmp --output=output/sample-photos-tidy-frame/440_4.bmp
+python face_detect_demo.py --img=images/sample-photos-tidy/444_4.bmp --output=output/sample-photos-tidy-frame/444_4.bmp
+python face_detect_demo.py --img=images/sample-photos-tidy/469_2.bmp --output=output/sample-photos-tidy-frame/469_2.bmp
+
+```{r}
+dir_info("../output/sample-photos-tidy-frame/") %>% 
+    summarise(
+        time_diff = max(birth_time) - min(birth_time),
+        n = n()
+    ) %>% 
+    mutate(
+        avg = time_diff/n
+    )
+```
+
