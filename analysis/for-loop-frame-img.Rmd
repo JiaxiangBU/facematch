@@ -42,6 +42,7 @@ dir_info("../output/sample-photos-tidy-frame/") %>%
     ) %>% 
     mutate(
         avg = time_diff/n
-    )
+    ) %>% 
+    write_rds("../../face-recognization-practice/output/facematch-perf.rds")
 ```
 
